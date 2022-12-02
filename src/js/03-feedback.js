@@ -19,17 +19,19 @@ window.addEventListener('load', onFormLoad);
 
 function onFormLoad(e) {
     e.preventDefault();
-    const formContent = JSON.parse(localStorage.getItem('feedback-form-state')) || 
-        {email: '', message: ''}
-    refs.email.value = email;
-    refs.message.value = message;
+    const formContent = JSON.parse(localStorage.getItem('feedback-form-state')) ||
+        { email: '', message: '' };
+    const localStorageItem = localStorage.getItem('feedback-form-state');
+    localStorageItem[e.target.name] = e.target.value;
 }
 
 refs.form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit (e) {
-    localStorage.clear();
-    console.log(refs.email.value = email,
-    refs.message.value = message);
+    const key = 'feedback-form-state';
+    e.preventDefault();
+    e.currentTarget.reset();
+    console.log(localStorage.getItem(key));
+    localStorage.removeItem(key);
 }
  
