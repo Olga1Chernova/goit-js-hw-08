@@ -15,15 +15,16 @@ const onFormInput = (event) => {
 
 refs.form.addEventListener('input', throttle(onFormInput, 500));
 
-window.addEventListener('load', onFormLoad);
 
-function onFormLoad(e) {
-    e.preventDefault();
-    const formContent = JSON.parse(localStorage.getItem('feedback-form-state')) ||
-        { email: '', message: '' };
-    const localStorageItem = localStorage.getItem('feedback-form-state');
-    localStorageItem[e.target.name] = e.target.value;
+const localStorageItem = localStorage.getItem('feedback-form-state');
+if (localStorageItem) {
+    const localStorageItemFilling = JSON.parse(localStorageItem)
+        || { email: "", message: "" };
+    refs.email.value = localStorageItemFilling.email;
+    refs.message.value = localStorageItemFilling.message;
 }
+
+
 
 refs.form.addEventListener('submit', onFormSubmit);
 
